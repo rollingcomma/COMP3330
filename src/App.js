@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import { Todo, Form, FilterButton } from "./components/TodoComponents";
 
@@ -38,10 +38,22 @@ function App(props) {
       setFilter={setFilter}/>
   ));
 
+  useEffect(()=>{
+    const data = localStorage.getItem('taskList');
+    if(data) {
+      setTasks(JSON.parse(data));
+    }
+  }, []);
+
+  useEffect(()=>{
+    localStorage.setItem('taskList', JSON.stringify(tasks));
+  });
+
+  
   const headingText = taskList? `${taskList.length} ${taskList.length === 1 ? "task" : "tasks"} remaining` : '';
 
   function addTask(name) {
-    const newTask = { id: `todo-${tasks.length}`, name: name, completed: false };
+    const newTask = { id: `todo-q${tasks.length}`, name: name, completed: false };
     setTasks([...tasks, newTask]);
   }
 

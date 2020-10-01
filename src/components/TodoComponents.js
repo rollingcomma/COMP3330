@@ -90,7 +90,7 @@ export function Todo(props) {
         </button>
         <button 
           type="submit" 
-          className="btn btn__primary todo-edit"  s>
+          className="btn btn__primary todo-edit">
           Save
         <span className="visually-hidden">new name for {props.name}</span>
         </button>
