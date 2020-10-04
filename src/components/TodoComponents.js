@@ -5,7 +5,7 @@ export function Form(props) {
   const [name, setName] = useState('');
   const [msg, setMsg] = useState('');
 
-  function handleSubmit(e) {
+  const handleSubmit = e => {
     e.preventDefault();
     if(name.length > 0) {
       props.addTask(name);
@@ -16,7 +16,7 @@ export function Form(props) {
     }
   }
 
-  function handleChange(e) {
+  const handleChange = e => {
     setName(e.target.value);
   }
 

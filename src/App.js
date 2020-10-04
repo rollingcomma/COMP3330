@@ -13,8 +13,38 @@ const FILTER_NAMES = Object.keys(FILTER_MAP);
 function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
   const [filter, setFilter] = useState('All');
+  
+  const toggleTaskCompleted = id => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === id) {
+        task.completed = !task.completed;
+      }
+      return task;
+    })
+    setTasks(updatedTasks);
+  }
 
-  const taskList = tasks? tasks
+  const deleteTask = id => {
+    const remainingTasks = tasks.filter(task => task.id !== id);
+    setTasks(remainingTasks);
+  }
+
+  const editTask = (id, newName) => {
+    const editedTaskList = tasks.map(task => {
+      if (id === task.id) {
+        return { ...task, name: newName }
+      }
+      return task;
+    });
+    setTasks(editedTaskList);
+  }
+
+  const clearTaskList = () => {
+    setTasks(null);
+    localStorage.clear();
+  }
+  const taskList = tasks? 
+    tasks
     .filter(task => FILTER_MAP[filter](task))
     .map(task => (
     <Todo
@@ -26,9 +56,9 @@ function App(props) {
       deleteTask={deleteTask}
       editTask={editTask}
     />
-  ))
-  : 
-  null;
+    ))
+    : 
+    null;
 
   const filterList = FILTER_NAMES.map(name => (
     <FilterButton 
@@ -46,42 +76,21 @@ function App(props) {
   }, []);
 
   useEffect(()=>{
-    localStorage.setItem('taskList', JSON.stringify(tasks));
+    if(tasks) {
+      localStorage.setItem('taskList', JSON.stringify(tasks));
+    }
   });
+  
+  const headingText = taskList?`${ taskList.length} ${taskList.length === 1 ? "task" : "tasks"} remaining`:'No task, add some...';
+
+  const addTask = (name) => {
+    const task = { id: `todo-${tasks?tasks.length:0}`, name: name, completed: false };
+    const newTasks = tasks?[...tasks, task]:[task];
+    setTasks(newTasks);
+  }
 
   
-  const headingText = taskList? `${taskList.length} ${taskList.length === 1 ? "task" : "tasks"} remaining` : '';
-
-  function addTask(name) {
-    const newTask = { id: `todo-q${tasks.length}`, name: name, completed: false };
-    setTasks([...tasks, newTask]);
-  }
-
-  function toggleTaskCompleted(id) {
-    const updatedTasks = tasks.map((task) => {
-      if(task.id === id) {
-        task.completed = !task.completed;
-      }
-      return task;
-    })
-    setTasks(updatedTasks);
-  }
-
-  function deleteTask(id) {
-    const remainingTasks = tasks.filter(task => task.id !== id);
-    setTasks(remainingTasks);
-  }
   
-  function editTask(id, newName) {
-    const editedTaskList = tasks.map(task => {
-      if (id === task.id) {
-        return { ...task, name: newName }
-      }
-      return task;
-    });
-    setTasks(editedTaskList);
-  }
-
   return (
     <div className="todoapp stack-large">
       <h1>TodoMatic</h1>
@@ -89,6 +98,8 @@ function App(props) {
       <div className="filters btn-group stack-exception">
         {filterList}
       </div>
+      <button type="button"
+        className="btn" onClick={clearTaskList}>Clear Tasks</button>
       <h2 id="list-heading">
         {headingText}
       </h2>
