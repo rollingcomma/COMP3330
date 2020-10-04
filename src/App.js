@@ -43,19 +43,20 @@ function App(props) {
     setTasks(null);
     localStorage.clear();
   }
+
   const taskList = tasks? 
     tasks
     .filter(task => FILTER_MAP[filter](task))
     .map(task => (
-    <Todo
-      id={task.id}
-      name={task.name}
-      completed={task.completed}
-      key={task.id}
-      toggleTaskCompleted={toggleTaskCompleted}
-      deleteTask={deleteTask}
-      editTask={editTask}
-    />
+      <Todo
+        id={task.id}
+        name={task.name}
+        completed={task.completed}
+        key={task.id}
+        toggleTaskCompleted={toggleTaskCompleted}
+        deleteTask={deleteTask}
+        editTask={editTask}
+      />
     ))
     : 
     null;
@@ -89,8 +90,6 @@ function App(props) {
     setTasks(newTasks);
   }
 
-  
-  
   return (
     <div className="todoapp stack-large">
       <h1>TodoMatic</h1>
