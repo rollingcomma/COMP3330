@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot test for all components renders FilterButton component 1`] = `
+<button
+  className="btn toggle-btn"
+  onClick={[Function]}
+  type="button"
+>
+  <span
+    className="visually-hidden"
+  >
+    Show 
+  </span>
+  <span>
+     
+  </span>
+  <span
+    className="visually-hidden"
+  >
+     tasks
+  </span>
+</button>
+`;
+
+exports[`snapshot test for all components renders Form component  1`] = `
+<form
+  onSubmit={[Function]}
+>
+  <h2
+    className="label-wrapper"
+  >
+    <label
+      className="label__lg"
+      htmlFor="new-todo-input"
+    >
+      What needs to be done?
+    </label>
+  </h2>
+  
+  <input
+    autoComplete="off"
+    className="input input__lg"
+    id="new-todo-input"
+    name="text"
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
+  <button
+    className="btn btn__primary btn__lg"
+    id="new_list_add_btn"
+    type="submit"
+  >
+    Add
+  </button>
+</form>
+`;
+
+exports[`snapshot test for all components renders Todo component correctly in view template 1`] = `
+<li
+  className="todo stack-small"
+>
+  <div
+    className="stack-small"
+  >
+    <div
+      className="c-cb"
+    >
+      <input
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <label
+        className="todo-label"
+      />
+    </div>
+    <div
+      className="btn-group"
+    >
+      <button
+        className="btn"
+        onClick={[Function]}
+        type="button"
+      >
+        Edit 
+        <span
+          className="visually-hidden"
+        />
+      </button>
+      <button
+        className="btn btn__danger btn_dlt"
+        onClick={[Function]}
+        type="button"
+      >
+        Delete 
+        <span
+          className="visually-hidden"
+        />
+      </button>
+    </div>
+  </div>
+</li>
+`;
